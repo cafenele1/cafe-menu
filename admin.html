@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>مدیریت منوی کافه</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<style>
+@font-face{font-family:"Yekan Bakh";src:url("./fonts/YekanBakh-Regular.woff2") format("woff2");font-display:swap}
+:root{--bg:#f5f2ec;--card:#fffdf8;--ink:#101820;--muted:#667079;--line:rgba(16,24,32,.14);--blue:#2146c7;--danger:#b53f39}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Yekan Bakh",Tahoma,sans-serif}.wrap{width:min(1100px,calc(100% - 24px));margin:28px auto}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:20px}.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px;margin-bottom:16px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.full{grid-column:1/-1}label{display:grid;gap:6px;font-size:13px;color:var(--muted)}input,textarea,select{font:inherit;border:1px solid var(--line);background:white;border-radius:12px;padding:11px;color:var(--ink)}textarea{min-height:90px;resize:vertical}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{font:inherit;border:0;border-radius:12px;padding:11px 15px;cursor:pointer;background:var(--ink);color:white}.btn.blue{background:var(--blue)}.btn.ghost{background:white;color:var(--ink);border:1px solid var(--line)}.btn.danger{background:var(--danger)}.hidden{display:none!important}.status{font-size:13px;color:var(--muted)}.items{display:grid;gap:10px}.item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:10px}.item img{width:64px;height:64px;object-fit:cover;border-radius:12px;background:#ddd}.item h3{margin:0 0 3px;font-size:16px}.item p{margin:0;color:var(--muted);font-size:12px}.checkrow{display:flex;gap:14px;flex-wrap:wrap}.checkrow label{display:flex;align-items:center;gap:6px;color:var(--ink)}@media(max-width:700px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.top{align-items:flex-start;flex-direction:column}.item{grid-template-columns:52px 1fr}.item img{width:52px;height:52px}.item .actions{grid-column:1/-1}}
+</style>
+</head><body><main class="wrap">
+<div class="top"><div><h1 style="margin:0">پنل مدیریت کافه</h1><div class="status" id="auth-state">در حال بررسی ورود…</div></div><button class="btn ghost hidden" id="logout">خروج</button></div>
+<section class="card" id="login-card"><h2>ورود ادمین</h2><div class="grid"><label>ایمیل<input id="email" type="email" autocomplete="username"></label><label>رمز عبور<input id="password" type="password" autocomplete="current-password"></label></div><div class="actions" style="margin-top:12px"><button class="btn blue" id="login">ورود</button></div><p class="status" id="login-msg"></p></section>
+<div id="dashboard" class="hidden">
+<section class="card"><div class="top"><div><h2 style="margin:0">محصولات</h2><div class="status">اضافه، ویرایش، حذف، قیمت، عکس و ویژگی‌ها</div></div><button class="btn blue" id="new-product">محصول جدید</button></div><div class="items" id="product-list"></div></section>
+<section class="card hidden" id="editor"><h2 id="editor-title">محصول جدید</h2><input id="product-id" type="hidden"><div class="grid">
+<label>نام محصول<input id="p-name"></label><label>دسته‌بندی<select id="p-category"><option value="espresso">اسپرسوبیس</option><option value="iced">آیس‌کافی</option><option value="tea">چای و دمنوش</option><option value="shake">شیک</option><option value="dessert">کیک و دسر</option><option value="breakfast">صبحانه</option></select></label>
+<label>قیمت کوچک / اصلی<input id="p-small" type="number" min="0"></label><label>قیمت بزرگ (اختیاری)<input id="p-large" type="number" min="0"></label>
+<label class="full">توضیحات<textarea id="p-desc"></textarea></label><label>تگ‌ها، با ویرگول<input id="p-tags" placeholder="پرفروش، دبل شات"></label><label>آلرژن‌ها، با ویرگول<input id="p-allergens" placeholder="شیر، مغزها، گلوتن"></label>
+<label class="full">عکس جدید<input id="p-image" type="file" accept="image/*"></label>
+<div class="full checkrow"><label><input id="p-available" type="checkbox" checked> موجود</label><label><input id="p-vegan" type="checkbox"> گیاهی</label><label><input id="p-dairy" type="checkbox"> بدون لبنیات</label><label><input id="p-sugar" type="checkbox"> بدون شکر</label></div>
+</div><div class="actions" style="margin-top:14px"><button class="btn blue" id="save-product">ذخیره</button><button class="btn ghost" id="cancel-edit">انصراف</button></div><p class="status" id="product-msg"></p></section>
+<section class="card"><h2>شبکه‌های اجتماعی و اطلاعات تماس</h2><div class="grid"><label>آیدی اینستاگرام<input id="s-instagram-id" placeholder="@cafe"></label><label>لینک اینستاگرام<input id="s-instagram-url" placeholder="https://instagram.com/..."></label><label>لینک تلگرام<input id="s-telegram-url"></label><label>لینک واتساپ<input id="s-whatsapp-url"></label><label>شماره تماس<input id="s-phone"></label><label>آدرس<input id="s-address"></label></div><div class="actions" style="margin-top:14px"><button class="btn blue" id="save-settings">ذخیره اطلاعات</button></div><p class="status" id="settings-msg"></p></section>
+</div></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="./js/supabase-config.js"></script><script src="./js/admin.js"></script>
+</body></html>
